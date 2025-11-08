@@ -7,7 +7,7 @@ A comprehensive D3.js learning workshop featuring 20 different visualization typ
 1. **Setup API Key (Optional)**
    - The project uses `DEMO_KEY` by default (limited requests)
    - For unlimited access, get a free API key at https://api.nasa.gov/
-   - Your API key is already in `js/config.js` - just replace `DEMO_KEY` with your key
+   - Your API key is in `config.js` (root directory) - just replace `DEMO_KEY` with your key
 
 2. **No installation required!** Just open `index.html` in your web browser
 
