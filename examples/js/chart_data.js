@@ -56,17 +56,17 @@
  * 
  * @example
  * // Get data for a specific chart type
- * const barData = chartData(data).bar;
- * const scatterData = chartData(data).scatter;
+ * const barData = getChartData(data).bar;
+ * const scatterData = getChartData(data).scatter;
  * 
  * @example
  * // Use in a render function
  * function renderMyChart(containerId, data) {
- *     const chartSpecificData = chartData(data).myChartType;
+ *     const chartSpecificData = getChartData(data).myChartType;
  *     // ... use chartSpecificData for visualization
  * }
  */
-function chartData(data) {
+function getChartData(data) {
     return {
         // Time-based charts - use getDailyCounts()
         area: getDailyCounts(),

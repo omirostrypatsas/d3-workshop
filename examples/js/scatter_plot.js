@@ -20,7 +20,7 @@ function renderScatterPlot(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get asteroid data for scatter plot
-    const chartDataset = chartData(data).scatter;
+    const chartDataset = getChartData(data).scatter;
     
     const svg = container
         .append('svg')

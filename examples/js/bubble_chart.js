@@ -20,7 +20,7 @@ function renderBubbleChart(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get asteroid data for bubble chart
-    const chartDataset = chartData(data).bubble;
+    const chartDataset = getChartData(data).bubble;
     
     const svg = container
         .append('svg')

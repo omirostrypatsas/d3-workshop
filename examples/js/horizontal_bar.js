@@ -20,7 +20,7 @@ function renderHorizontalBar(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get top asteroids by velocity
-    const chartDataset = chartData(data).horizontalBar;
+    const chartDataset = getChartData(data).horizontalBar;
     
     const svg = container
         .append('svg')

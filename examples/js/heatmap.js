@@ -20,7 +20,7 @@ function renderHeatmap(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get asteroid data for heatmap
-    const chartDataset = chartData(data).heatmap;
+    const chartDataset = getChartData(data).heatmap;
     
     const svg = container
         .append('svg')

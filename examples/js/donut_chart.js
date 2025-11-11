@@ -20,7 +20,7 @@ function renderDonutChart(containerId, data) {
     const radius = Math.min(width, height) / 2 - 40;
     
     // Get size categories for donut chart
-    const chartDataset = chartData(data).donut;
+    const chartDataset = getChartData(data).donut;
     const totalCount = Object.values(chartDataset).flat().length;
     const hazardousCount = Object.values(chartDataset).flat().filter(a => a.is_hazardous).length;
     const nonHazardousCount = totalCount - hazardousCount;

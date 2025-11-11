@@ -20,7 +20,7 @@ function renderSunburst(containerId, data) {
     const radius = Math.min(width, height) / 2;
     
     // Get size categories for sunburst
-    const chartDataset = chartData(data).sunburst;
+    const chartDataset = getChartData(data).sunburst;
     
     // Create hierarchical data
     const hierarchyData = {

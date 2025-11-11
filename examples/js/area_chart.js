@@ -20,7 +20,7 @@ function renderAreaChart(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get daily counts for area chart
-    const chartDataset = chartData(data).area;
+    const chartDataset = getChartData(data).area;
     
     const svg = container
         .append('svg')

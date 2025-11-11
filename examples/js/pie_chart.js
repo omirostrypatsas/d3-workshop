@@ -20,7 +20,7 @@ function renderPieChart(containerId, data) {
     const radius = Math.min(width, height) / 2 - 40;
     
     // Get size categories for pie chart
-    const chartDataset = chartData(data).pie;
+    const chartDataset = getChartData(data).pie;
     const totalCount = Object.values(chartDataset).flat().length;
     const hazardousCount = Object.values(chartDataset).flat().filter(a => a.is_hazardous).length;
     const nonHazardousCount = totalCount - hazardousCount;

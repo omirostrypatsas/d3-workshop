@@ -20,7 +20,7 @@ function renderBoxPlot(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get asteroid data for box plot
-    const chartDataset = chartData(data).boxPlot;
+    const chartDataset = getChartData(data).boxPlot;
     const stats = getMetricStats('diameter_avg');
     const diameters = chartDataset.map(d => d.diameter_avg).sort((a, b) => a - b);
     

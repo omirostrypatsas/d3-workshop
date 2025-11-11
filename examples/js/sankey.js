@@ -27,7 +27,7 @@ function renderSankey(containerId, data) {
         .attr('height', height);
     
     // Get daily counts for sankey diagram
-    const chartDataset = chartData(data).sankey;
+    const chartDataset = getChartData(data).sankey;
     
     // Group by size category from daily counts
     const sizeCategories = {

@@ -20,7 +20,7 @@ function renderLineChart(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get daily counts for line chart
-    const chartDataset = chartData(data).line;
+    const chartDataset = getChartData(data).line;
     
     const svg = container
         .append('svg')

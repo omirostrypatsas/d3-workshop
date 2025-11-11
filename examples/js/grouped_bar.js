@@ -20,7 +20,7 @@ function renderGroupedBar(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get size categories for grouped bar chart
-    const chartDataset = chartData(data).groupedBar;
+    const chartDataset = getChartData(data).groupedBar;
     const categories = ['small', 'medium', 'large', 'very_large'];
     const categoryLabels = {
         small: 'Small (<0.1km)',

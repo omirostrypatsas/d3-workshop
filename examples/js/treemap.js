@@ -19,7 +19,7 @@ function renderTreemap(containerId, data) {
     const height = 500;
     
     // Get size categories for treemap
-    const chartDataset = chartData(data).treemap;
+    const chartDataset = getChartData(data).treemap;
     
     // Create hierarchical data
     const hierarchyData = {

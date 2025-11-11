@@ -20,7 +20,7 @@ function renderStackedBar(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get daily counts for stacked bar chart
-    const chartDataset = chartData(data).stackedBar;
+    const chartDataset = getChartData(data).stackedBar;
     
     const svg = container
         .append('svg')

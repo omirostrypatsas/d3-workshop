@@ -20,7 +20,7 @@ function renderStreamGraph(containerId, data) {
     const height = 500 - margin.top - margin.bottom;
     
     // Get daily counts for stream graph
-    const chartDataset = chartData(data).streamGraph;
+    const chartDataset = getChartData(data).streamGraph;
     
     const svg = container
         .append('svg')
