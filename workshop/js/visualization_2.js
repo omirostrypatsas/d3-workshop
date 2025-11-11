@@ -4,9 +4,9 @@
  */
 
 // Chart metadata
-window.VISUALIZATION_1_CONFIG = {
-    title: 'Asteroid Detection Timeline',
-    subtitle: 'Daily count of near-Earth objects detected',
+window.VISUALIZATION_2_CONFIG = {
+    title: 'Were missing the visualizations',
+    subtitle: 'Lets add that to step 7',
     description: 'This line chart visualizes the number of asteroids detected each day, helping identify patterns in asteroid detection frequency.',
     category: 'practice'
 };
@@ -16,7 +16,7 @@ window.VISUALIZATION_1_CONFIG = {
  * @param {string} containerId - The ID of the container element
  * @param {Object} data - The asteroid data object
  */
-function renderVisualization1(containerId, data) {
+function renderVisualization2(containerId, data) {
     // ============================================================================
     // STEP 1: SETUP - Prepare the container and set chart dimensions
     // ============================================================================
@@ -109,7 +109,14 @@ function renderVisualization1(containerId, data) {
     // Or perhaps draw bars instead
     // svg.selectAll('.bar')
       
-
+    // Placeholder text
+    svg.append('text')
+        .attr('x', width / 2)
+        .attr('y', height / 2)
+        .attr('text-anchor', 'middle')
+        .style('font-size', '24px')
+        .style('fill', '#666')
+        .text('Build your visualization here!');
         
     console.log('📊 Visualization 1 rendered:', chartData.length, 'data points');
 }

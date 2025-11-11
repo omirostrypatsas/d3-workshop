@@ -5,7 +5,7 @@
 
 // Chart metadata
 window.VISUALIZATION_1_CONFIG = {
-    title: 'Asteroid Detection Timeline',
+    title: 'A complete working line chart',
     subtitle: 'Daily count of near-Earth objects detected',
     description: 'This line chart visualizes the number of asteroids detected each day, helping identify patterns in asteroid detection frequency.',
     category: 'practice'

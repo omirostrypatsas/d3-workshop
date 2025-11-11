@@ -36,6 +36,10 @@ function renderVisualization5(containerId, data) {
     
     // TODO: Add your D3.js visualization code here
     // Example: Create scales, axes, and visual elements
+
+    // Heres the chart data to start you off
+    const chartData = getChartData(data).line;
+
     
     // Placeholder text
     svg.append('text')
