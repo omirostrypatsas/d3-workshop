@@ -23,12 +23,12 @@ function renderVisualization1(containerId, data) {
     // Select the container element by ID and clear any existing content
     const container = d3.select(`#${containerId}`);
     container.selectAll('*').remove();
-    
+
     // Define margins and calculate inner dimensions
     const margin = { top: 20, right: 20, bottom: 60, left: 80 };
     const width = 800 - margin.left - margin.right;
     const height = 500 - margin.top - margin.bottom;
-    
+
     // ============================================================================
     // STEP 2: CREATE SVG CANVAS - Build the drawing area
     // ============================================================================
@@ -40,14 +40,14 @@ function renderVisualization1(containerId, data) {
         .attr('height', height + margin.top + margin.bottom)
         .append('g')
         .attr('transform', `translate(${margin.left},${margin.top})`);
-    
+
     // ============================================================================
     // STEP 3: PREPARE DATA - Get the data we need for the line chart
     // ============================================================================
     // Get daily asteroid counts from the data provider
     // Returns array of objects: {date, total, hazardous, non_hazardous}
     const chartData = getChartData(data).line;
-    
+
     // ============================================================================
     // STEP 4: CREATE SCALES - Map data values to pixel positions
     // ============================================================================
@@ -56,13 +56,13 @@ function renderVisualization1(containerId, data) {
         .domain(chartData.map(d => d.date))  // All dates
         .range([0, width])                    // Pixel range
         .padding(0.1);                        // Space between bands
-    
+
     // Y scale: Maps counts to vertical positions
     const yScale = d3.scaleLinear()
         .domain([0, d3.max(chartData, d => d.total)])  // 0 to max count
         .nice()                                         // Round to nice numbers
         .range([height, 0]);                           // Bottom to top (inverted)
-    
+
     // ============================================================================
     // STEP 5: DRAW AXES - Add X and Y axes to the chart
     // ============================================================================
@@ -70,11 +70,11 @@ function renderVisualization1(containerId, data) {
     svg.append('g')
         .attr('transform', `translate(0,${height})`)
         .call(d3.axisBottom(xScale).tickFormat(d => d.split('-').slice(1).join('/')))
-    
+
     // Y axis on the left
     svg.append('g')
         .call(d3.axisLeft(yScale).ticks(6));
-    
+
     // ============================================================================
     // STEP 6: ADD LABELS - Label the axes so viewers know what they represent
     // ============================================================================
@@ -84,7 +84,7 @@ function renderVisualization1(containerId, data) {
         .attr('y', height + 50)
         .attr('text-anchor', 'middle')
         .text('Date');
-    
+
     // Y axis label (rotated)
     svg.append('text')
         .attr('transform', 'rotate(-90)')
@@ -92,7 +92,8 @@ function renderVisualization1(containerId, data) {
         .attr('y', -60)
         .attr('text-anchor', 'middle')
         .text('Number of Asteroids');
-    
+
+
     // ============================================================================
     // STEP 7: DRAW THE LINE and DATA POINTS  - Create and render the main line path
     // ============================================================================
@@ -101,7 +102,7 @@ function renderVisualization1(containerId, data) {
         .x(d => xScale(d.date) + xScale.bandwidth() / 2)  // Center on band
         .y(d => yScale(d.total))                           // Height based on count
         .curve(d3.curveMonotoneX);                         // Smooth curve
-    
+
     // Add the line path
     svg.append('path')
         .datum(chartData)           // Bind all data to single path
@@ -115,10 +116,11 @@ function renderVisualization1(containerId, data) {
         .data(chartData)            // Bind data
         .enter()                    // Create elements for new data
         .append('circle')
+        .attr('class', 'dot')       // Add class for targeting
         .attr('cx', d => xScale(d.date) + xScale.bandwidth() / 2)  // X position
         .attr('cy', d => yScale(d.total))                           // Y position
         .attr('r', 4)               // Radius
-        .attr('fill', '#4CAF50');   // Green fill
+        .attr('fill', '#4CAF50')    // Green fill
 
     // ============================================================================
     // STEP 8: ADD TOOLTIPS - Implement interactive tooltips for data points
@@ -128,20 +130,46 @@ function renderVisualization1(containerId, data) {
         .style('opacity', 0)
         .style('background', 'white')
         .style('pointer-events', 'none');
-    
+
     svg.selectAll('circle')
-        .on('mouseover', function(event, d) {
+        .on('mouseover', function (event, d) {
             d3.select(this).attr('r', 8);
             tooltip.style('opacity', 1)
                 .html(`Date: ${d.date}<br>Total: ${d.total}`)
                 .style('left', (event.pageX + 10) + 'px')
                 .style('top', (event.pageY - 28) + 'px');
         })
-        .on('mouseout', function() {
+        .on('mouseout', function () {
             d3.select(this).attr('r', 4);
             tooltip.style('opacity', 0);
         })
-        .on('click', function(event, d) {
+        .on('click', function (event, d) {
             alert(`Date: ${d.date}, Total: ${d.total}`);
         });
+
+    // ============================================================================
+    // STEP 9: ADD BRUSHING - Enable brushing to highlight selected data points
+    // ============================================================================
+    const brush = d3.brushX()
+        .extent([[0, 0], [width, height]])
+        .on('end', event => {
+            if (event.selection) {
+                const [x0, x1] = event.selection;
+                svg.selectAll('circle').attr('fill', d =>
+                    xScale(d.date) + xScale.bandwidth() / 2 >= x0 &&
+                        xScale(d.date) + xScale.bandwidth() / 2 <= x1 ? 'red' : '#4CAF50'
+                );
+            } else {
+                svg.selectAll('circle').attr('fill', '#4CAF50');
+            }
+        });
+
+    // Insert brush group BEFORE the first circle in the DOM
+    // This makes it render below the circles even though we're adding it after
+    svg.insert('g', 'circle')
+        .attr('class', 'brush')
+        .call(brush);
+
+    // Ensure circles have pointer-events enabled to intercept hover
+    svg.selectAll('circle').style('pointer-events', 'all');
 }
